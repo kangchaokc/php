@@ -1,0 +1,111 @@
+//注意:数组到字符串的转换	用echo 的错误	不能输出数组
+Notice: Array to string conversion in 
+
+解析错误:		Parse error
+语法错误:		syntax error
+意外的:		unexpected 
+致命错误:		Fatal error
+不能重新定义:	Cannot redeclare
+已经声明:		previously declared
+注意:			Notice
+警告:			Warning
+
+行		row
+列，专栏	column
+改变		alter
+显示		show
+创建		Create
+查看		modify
+索引,指针	index
+翻译:		Translations
+定义:		define
+变量:		variable ;  variate	
+变量名:	variable name
+常量		constant
+名字:		name
+年龄:		age	
+局部变量:	local
+全局变量:	global
+静态变量:	static
+参数:		parameter
+函数:		function
+值:		value
+数学:		Math
+数字:		num(Number)
+布尔:		boolean		
+真:		true
+假:		false
+整数:		integer
+浮点:		float
+字符串:	string
+定界符:	heredoc
+数组:		array
+空的:		empty
+对象:		object
+资源:		resource
+空值:		null
+长度:		length
+
+版本:					version
+警告:					Warning		
+计算机:				computers
+服务器:				server
+本地主机;本地服务器		localhost
+打开目录:				opendir(网络释义)
+关闭目录:				closedir(网络释义)
+读取目录项:				readdir(网络释义)
+删除目录:				rmdir
+创建目录:				mkdir
+目录:					Contents(directory)
+文件:					file
+大小:					size
+文本:					text
+存在:					exists
+分开:					unlink
+拷贝:					copy
+重命名:				rename
+路径:					path
+写入:					fwrite
+读取:					fread
+下载:					download
+上传:					uploading
+删除:					delete
+取消:					cancel
+关闭:					close
+下一步:				next
+出口:					exit
+返回:					back
+脚本:					script
+输出:					export
+数据:					data
+数据库:				database
+连接					connect
+管理者				administrator
+类型:					type
+类:					class
+方法:					method
+路线,行,线:			line
+电话,访问				call
+
+存在,出现,				exists
+
+关键的,秘钥，钥匙			key
+开始:					start
+结束:					end
+新的:					new
+放入:					put
+演示:					demo
+
+使用						use
+
+
+连接数据库单词:								内容,目录					content
+										连接						connect
+										字符集					charset
+										本地服务器					localhost
+										用户						user
+										密码						password
+										数据库					database
+										端口						port
+										关闭						close	
+															

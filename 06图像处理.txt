@@ -1,0 +1,65 @@
+在PHP中通过gd库处理图像操作	都是现在内存中处理	操作完以文件流方式输出到浏览器或保存在服务器的磁盘中
+	创建一个图像四个步骤:
+			1创建图像
+				所有的绘图设计都需要在一个图像上完成
+			2绘制图像
+				图像创建完后	可以使用各种画像函数设置图像的颜色,填充画布,画点,线段,各种几何图像,添加文本等
+			3输出图像
+				完成整个绘制之后	需要向图像以某种格式保存到服务器文件,或者将图像直接输出到流量器上显示给用户
+				但输出图像之前	一定要使用header()函数发送content-type通知浏览器 这次发送的是图片不是文本
+									默认:	header(content-type:"text/html");
+									注意:
+										header()函数之前	不能输出任何内容	echo "等等";
+										/在PHP中是绝对路径		不是web中的目录地址
+			4释放资源
+					imagedestroy		销毁图像
+					
+header("content-type:text.html;charset=utf-8");什么格式	如果imagejpeg()第二参数写了     那要改成text.html文件形式	没写是输出一张图片要谢image.jpeg
+$img=imagecreatetruecolor(300, 300);	创建图像
+$color=imagecolorallocate($img, 200, 155, 3);分配颜色
+imagefill($img, 0, 0, $color);从哪个位置填充
+imagejpeg($img,'images/woshitu.jpeg');第二个参数是保存地址		不写是输出一张图片到浏览器
+imagedestroy($img);释放内存
+
+
+
+一	创建图像
+			//新建
+				imagecreatetruecolor()		新建一个真彩色图像
+			//打开服务器或网络文件中已经存在GIF	JPEG	PNG	WBMP格式图像
+				imagecreatefromjpeg()
+				imagecreatefrompng()
+				imagecreatefromif()
+				imagecreatefromwbmp()
+			//创建或者打开失败时会返回空字符串	并输出一条错误信息
+				imagesx()//输出图像宽度
+				imagesy()//输出图像高度
+				getimagesize()//取的图像大小
+	
+二绘制图像
+			imagecolorallocate()		分配颜色
+			imagefill()					区域填充
+			imagesetpixel()				画一个单个像素
+			imageline()					画一条线
+			imagerectangle()			画一个矩形
+			imagestring()				水平画一行字符串		
+			imagettftext()				用truetype	字体向图像写入文本			验证码推荐
+			imagettfbbox()				计算truetype	文字所占区域
+			imagecopy()					拷贝图像的一部分		不能控制透明度
+			imagecopymerge()			拷贝图像一部分控制	可以控制透明度
+			imagecopyresampled()		重采样拷贝部分图像并调整大小
+
+
+三)生成图像
+		header()
+		imagegif()
+		imagejpeg()
+		imagepng()
+		imagewbmp()
+						等比例缩放		
+							$open_img_x=imagesx($open);
+							$open_img_y=imagesy($open);
+							
+							//$width=500;每增加100相当于放大0.1倍
+							//$height=$width/($open_img_x/$open_img_y);这方法不准确
+							

@@ -1,0 +1,129 @@
+
+//连接数据库 (地址，用户名，密码，要连接的数据库名,端口(数据库默认端口3306))
+ $con=mysqli_connect($localhost,$root,$password,$database,$port,);
+//抛出错误信息
+if(!$con){
+	echo "连接错误".mysqli_connect_error();
+}else{
+	echo "连接成功";
+}
+// 修改配置文件my.ini,在最后加上character-set-server=utf8解决中文显示问题
+
+//还回值 int		正确	则返回0(false)	错误则返回正整数(true)
+	mysqli_connect_errno();返回最后一次连接条用的错误代码		
+
+//还回值是str
+	mysqli_connect_error();返回一个字符串描述的最后一次连接调用的错误代码
+	
+//设置字符集
+	mysqli_set_charset($conn,"utf8");
+	
+//选	择特定的数据库	返回true		false
+	mysqli_select_charset($conn,数据库名字)
+	
+//对数据执行一条SQL语句		
+	$query="insert into b1(name) values('kc,sifangku,kc.com')";
+	mysqli_query($conn, $query);返回一个对象	可以传3个参数	第3个参数觉定了取结果集的方式
+	
+	
+		一)		//默认属性	可以写	也可以不写							
+				mysqli_store_result	执行SQL是提取结果集返回给PHP	并分配内存	存储到用户程序空间中	之后mysqli_fetch_array()相当于从本地取数据
+				
+				mysqli_use_result	执行SQL并没有从server提取结果集	mysqli_fetch_array()每次多要向server请求结果								
+	
+				对于insert update delete 等不会返回数据的SQL语句,成功返回true  失败返回false
+				对于返回数据的SQL语句成功的时候会返回结果集对象可以使用操作结果集对象的函数从中获取数据
+		
+				操作结果集对象函数:
+							1)从结果集对象解析数据的常见函数
+								1)一次获取一条	
+									以索引数组的方式获【取一条】数据
+										可以用循环来获取全部
+										mysqli_fetch_row(mysqli_query($conn, $query))
+									 以关联数组获取【一条】数据
+										mysqli_fetch_assoc(mysqli_query);
+									以索引数组和关联数组获取【一条】数据
+									第二个参数			
+										MYSQLI_NUM只获取索引	MYSQLI_ASSOC关联数组	不写多获得
+										mysqli_fetch_array(mysqli_query($conn,$query),第二个参数); 
+									
+								2)一次获取全部数据	
+									第二个参数			
+										MYSQLI_NUM只获取索引	MYSQLI_ASSOC关联数组	MYSQLI_BOTH多获得		不写也多获得	
+										mysqli_fetch_all(mysqli_query($conn,$query),第二个参数);
+								
+								3)获取结果中行的数量
+									mysqli_num_rows((mysqli_query($conn,$query))返回int
+									注意:
+										如果是用MYSQLI_USE_RESULT模式必须在获取玩结果才可使用该函数
+								
+	
+								4)获取字段对象
+									mysqli_fetch_field(mysqli_query($conn,$query)
+								  获取全部字段对象
+								  	mysqli_fetch_fields(mysqli_query($conn,$query)
+					
+								5)释放与一个结果集相关的内存
+										mysqli_free_result($conn);
+										返回的结果中在数据量很大的时候需要很多内存支持
+										所以在操作完结果集的时候有必要立刻释放与一个结果集相关的内存
+										释放之后,结果集就不能用了	
+										也就是在mysqli_free_result($conn);之后不能再输出这个结果集了
+				
+								
+					
+
+		二)	mysqli_real_query($conn,$query);也可以适用本函数对数据库执行一条SQL语句,不会返回结果集;适用于只需要返回布尔值,判断有没有执行成功的需求			
+				//如果想获取结果集可以使用	要获取数据的可以使用上面那种
+				mysqli_store_result()	
+				
+				
+		三)	如果在执行SQL语句的时候发生错误;以上2个函数都将返回false	用以下函数知道错误的原因
+				mysqli_errno(数据库名)	返回int	
+				mysqli_errpr(数据库名)	返回string
+
+		四)	其他函数:
+				//获取前一个MySQL操作的受影响的行数	比如修改数据库中的一条数据	这条数据修改成功了  返回int1条受影响	没成功返回0条受影响
+					也可以说是受影响的数据条数
+				mysqli_affected_rows(数据库名)
+				
+				//返回最后一次操作自动生成并使用id	
+					mysqli_insert_id(数据库名)
+				
+				//转义用于SQL语句中的特殊字符防止SQL语句出错
+					mysqli_real_escape_string(数据库名,要转义的字符串变量名)
+				例如:
+					$str=<<<string
+				dsfdsjsodifjs""">"''fdsigg/fgfd;oldgolojsdgfesd			
+string;						
+					$str=mysqli_real_escape_string($conn,%str);
+					if(mysqli_query($conn,$query){
+							var_dump(mysqli_insert_id($conn);
+					}else{
+						var_dump(mysqli_errno($conn));
+						var_dump(mysqli_error($conn));
+					}
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//关闭连接
+	mysqli_colse($conn);
+			
+	

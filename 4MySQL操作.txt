@@ -1,0 +1,212 @@
+MySQL支持的数据类型:
+		数值类型		时间类型		字符串类型
+		
+			控制台查看网络地址ipconfig
+			查看警告问题show warnings;
+			数据类型发生错误报:out of range
+			MySQL端口		3306
+SQL分类:
+	
+	DCL(data control languages)语句
+					数据控制语句:可以对数据库权限进行操作
+	
+	DDL(data definition languages)语句==============================================================
+		数据定义语句:可以对数据库进行    创建,删除，更改	一般(DBA)管理员操作
+		命令:
+			查看数据库个数			show databases;
+			创建数据库:			Create database	数据库名字;
+			删除数据库:			drop database 数据库名字;
+			操作数据库:			use 数据库名字;	
+			
+			查看数据库中表:			show tables;
+			修改表名:				alter table 旧表名 rename 新表名 [to];
+			查看创建表的语句:		show Create table 表名\G	G大写 小写跟;一样
+			建表:				create table 表名(字段名 	字段类型	约束条件,
+											 字段名2	字段类型	约束条件,	);									
+			删除表:				drop table 表名;
+				
+			
+			查看字段			desc 表名;
+			修改字段名字:		alter table 表名 change(column可加可不加) 旧字段名 新字段名 类型(也可以改) [first| after 字段名(放哪个后面写哪个)];
+			修改字段类型:		alter table 表名 modify(column可加可不加) 字段名  类型 [first|after 字段名(放哪个后面写哪个)];
+			增加字段			alter table 表名 add(column可加可不加) 字段名 类型 [first(放最前面)|after 字段名(放哪个后面写哪个)];
+			删除字段			alter table 表名 drop(column可加可不加) 字段名;
+		
+注意:  change first after 是属于MySQL在标准SQL上的扩展,在其他数据库不一定适用;
+			
+			
+			
+			
+				
+DML(data manipulation languages)语句==============================================================
+		数据操作语句:可以对数据进行	添加,删除,更改,查询
+		
+		
+命令:
+	
+-----------------------------------------------------------------------------------			
+	插入数据:			insert into 表名(字段名,字段名2) values(值1,值2);
+								也可以不指定字段名,默认表中排序依次插入值;	
+					例如:		insert into b1(id,age) values(1,18);
+								
+	插入多条数据		insert into 表名(字段名1,字段名2,..,字段名n) values(值1,值2,...,值n),(值1,值2,...,值n),(值1,值2,...,值n);
+																		每个(值1)对应字段名1以此类推
+------------------------------------------------------------------------------------------------------------------------						
+	更改数据:			update	表名 set	字段1=值,字段2=值,..,字段n=值  where 条件;
+													【注意:】
+														whele (约束改这个字段固定的值,不加有可能把这个字段值全改成这样);													
+													例如:		update b1 set age=50 where id1=4;	
+						
+	更改多个表中的数据:	update  表名1,表名2 set 表名1.字段=值,表名2.字段=值, where 条件;			
+															where 表1.字段名=值		and 表2.字段名=值;
+																
+									例如:		update b1,b2 set b1.age=3000,b2.age=6000 where b1.id1=1 and b2.id1=1;								
+	
+----------------------------------------------------------------------------------------------------------------------	
+	删除这表数据:			delete from 表名 where 条件;
+										【注意:】
+											条件不加删除这表所有数据
+											
+	删除多个表数据:			delete 表1,...,表n from 表1,...,表n where 条件;
+										【注意:】
+											条件不加删除全部数据
+--------------------------------------------------------------------------------------------					
+	查询数据:					
+								select * from 表名 [where 条件];		查所有	[这里面可加可不加]
+								select 字段名1,字段名2 from 表名  [where 条件];		查指定的	[这里面可加可不加]
+							
+								//一个条件
+	排序与限制查询					select * from 表名 order by 字段名 asc(desc表示从高到底);	asc表示从低到高也是默认排序不加也行
+								//多个条件  处理出现相同数据这个相同数据随机排序的问题
+								select * from 表名 order by 字段名 asc(desc表示从高到底),字段名 asc(desc表示从高到底);
+								
+								
+																						//从上往下取
+	排序与限制查询后				select * from 表名 order by 字段名 asc(desc),字段名 asc(desc) limit 1(表示从上取1条);	
+	只显示某些数据																					//计算机默认从0开始
+							select * from 表名 order by 字段名 asc(desc),字段名 asc(desc) limit 0(表示从哪条去),1(表示从0条开始取1条);			
+	
+							
+	聚合:	++++++++++++++++++++++++++++++++++++++++++++++++++		
+		求和					
+			select sum(字段名) from 表名;	
+	
+			//根据字段名1来求字段名2的总和     字段1相当于部门	字段2相当于工资  同一个部门工资加起来	
+				select sum(字段名2) from 表名 group by 字段名1;//字段1不显示 	//字段1,sum(字段名2)字段1显示
+							
+			//工资按各部门统计后     再把各部门所有工资加起来
+				select sum(字段名2) from 表名 group by 字段名1 with rollup;
+							
+						
+	having判断与where判断的区别:			= > < >= <= !=  多个条件使用 and or 连接来判断
+						having是统计后再进行判断	where是统计前做判断
+							select sum(字段名2) from 表名 group by 字段名1  having sum(字段名2)>多少;
+							
+	记录总数						//select count(*) from 表名;			
+								select count(字段名) from 表名; //某个字段记录总数
+							
+	最大值最小值						select max(字段名) from 表名;
+	
+	既要统计总和也要统计最大值,最小值			select sum(字段名2),max(字段2),min(字段2) from 表名 ;
+							
+							
+	
+	//一般只用于一个字段查询
+	查询相同数据只选一个显示:			select distinct * from 表名;	就算多个字段数据相同 只要有一个不相同就说他们不相同   就会显示												
+								select distinct 字段名1,字段名2 from 表名; 同时上    字段2中2条数据相同  但字段1中不相同   那就是不相同
+								select distinct 字段名1 from 表名 [where 条件];	[这里面可加可不加]
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++							
+	表连接:
+		内连接:把2张表相同的查出来    不匹配的不会显示
+			
+				select 表1.字段,表2.字段 from 表1,表2 where 表1.字段=表2.字段名;
+			
+		外连接:把2张表相同的出来  	不配的也会显示      没有的显示null
+					左连接:	
+					//就左边的表全部显示出来	用右边表匹配左边表	右边没有能与左边匹配的数据也会显示null
+											//表1可以与表2互换
+				select 表1.字段,表2.字段 from 表 1 left join 表2 	on	表2.字段=表1.字段;
+					右连接:	
+						//就右边的表全部显示出来	用左表匹配右边表	左没有能与右匹配的数据也会显示null
+											//表1也可以与互换
+				select 表1.字段,表2.字段 from 表 1 right join 表2 	on	表2.字段=表1.字段;
+					
+		
+	子查询:
+					//in	在....里面		not in		不在...里面
+				1. in()适合B表比A表数据小的情况
+				
+					//exists	在				not exists	不在
+				2. exists()适合B表比A表数据大的情况
+				
+				当A表数据与B表数据一样大时,in与exists效率差不多,可任选一个使用.
+
+	in:
+				select * from A
+				where id in(select id from B)
+				
+				以上查询使用了in语句,in()只执行一次,
+				它查出B表中的所有id字段并缓存起来之后,检查A表的id是否与B表中的id相等,如果相等则将A表的记录加入结果集中,直到遍历完A表的所有记录.
+				它的查询过程类似于以下过程
+				
+				List resultSet=[];
+				Array A=(select * from A);
+				Array B=(select id from B);
+				
+				for(int i=0;i<A.length;i++) {
+				   for(int j=0;j<B.length;j++) {
+				      if(A[i].id==B[j].id) {
+				         resultSet.add(A[i]);
+				         break;
+				      }
+				   }
+				}
+				return resultSet;
+				
+				可以看出,当B表数据较大时不适合使用in(),因为它会B表数据全部遍历一次.
+				如:A表有10000条记录,B表有1000000条记录,那么最多有可能遍历10000*1000000次,效率很差.
+				再如:A表有10000条记录,B表有100条记录,那么最多有可能遍历10000*100次,遍历次数大大减少,效率大大提升.
+
+				结论:in()适合B表比A表数据小的情况
+				
+				
+	exists:			
+				select a.* from A a 
+				where exists(select 1 from B b where a.id=b.id)
+				
+				以上查询使用了exists语句,exists()会执行A.length次,
+				它并不缓存exists()结果集,因为exists()结果集的内容并不重要,重要的是结果集中是否有记录,如果有则返回true,没有则返回false.
+				它的查询过程类似于以下过程
+				
+				List resultSet=[];
+				Array A=(select * from A)
+				
+				for(int i=0;i<A.length;i++) {
+				   if(exists(A[i].id) {    //执行select 1 from B b where b.id=a.id是否有记录返回
+				       resultSet.add(A[i]);
+				   }
+				}
+				return resultSet;
+				
+				当B表比A表数据大时适合使用exists(),因为它没有那么遍历操作,只需要再执行一次查询就行.
+				如:A表有10000条记录,B表有1000000条记录,那么exists()会执行10000次去判断A表中的id是否与B表中的id相等.
+				如:A表有10000条记录,B表有100000000条记录,那么exists()还是执行10000次,因为它只执行A.length次,
+					可见B表数据越多,越适合exists()发挥效果.
+				再如:A表有10000条记录,B表有100条记录,那么exists()还是执行10000次,还不如使用in()遍历10000*100次,
+					因为in()是在内存里遍历比较,而exists()需要查询数据库,我们都知道查询数据库所消耗的性能更高,而内存比较很快.
+				
+				结论:exists()适合B表比A表数据大的情况
+				
+				
+连合：
+	注意:列的个数要相等(字段个数相等	而不是字段名相等	
+		表1的ID与表2的iid也是可以拼成一列的(要保持位置相同)比如:b1第1列不可能与b2第2列拼接	哪怕字段名相同
+		谁在前就取谁的字段名作为这一列的字段名)
+				将2个或多个表以列连接	会去重(2个相同只会显示一个)
+				select * from 表1 	union	select * from 表2;	
+									不会去重(2个同样的2个也会显示)
+				elect * from 表1 	union all	select * from 表2;
+				
+				
+		
+						                    

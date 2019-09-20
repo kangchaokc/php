@@ -1,0 +1,73 @@
+要用var_dump();输出
+
+$_GET//一定大写
+	//数据传输接收
+	//优点:方便	直接在地址栏上就可以传输
+	//缺点:不安全	直接写在地址栏上  是可以看到数据的
+	格式:
+		//一个
+		http://localhost/php/new_file.php  ? 参数名=数据
+		//多个
+		http://localhost/php/new_file.php  ? 参数名=数据	&	参数名=数据
+		
+		<!DOCTYPE html>
+		<html>
+			//数据会自动在地址栏上显示0
+			<head>
+				<meta charset="UTF-8" />
+				<title>$_POST数据接收传输</title>
+			</head>
+			<body>
+			//method传输方式
+			//
+				<form method="get">
+					<input type="text" name="姓名"	/>
+					<input type="text" name="age"	/>
+					<input type="submit value="提交"	/>
+				</form>
+			</body>
+		</html>
+		<?php
+		
+		var_dump($_GET);
+
+		?>
+		
+$_POST
+	//数据接收传输
+		<!DOCTYPE html>
+		<html>
+	
+			<head>
+				<meta charset="UTF-8" />
+				<title>$_POST数据接收传输</title>
+			</head>
+			<body>
+			//method传输方式
+			//
+				<form method="post">
+					<input type="text" name="姓名"	/>
+					<input type="text" name="age"	/>
+					<input type="submit value="提交"	/>
+				</form>
+			</body>
+		</html>
+		<?php
+		
+		var_dump($_POST);
+
+		?>
+$GLOBALS 						引用全局作用域中可用的全部变量
+$_SERVER 						服务器和执行环境信息
+$_GET 							 HTTP GET 变量
+$_POST 							HTTP POST 变量
+$_FILES 						 HTTP 文件上传变量
+$_REQUEST 						 HTTP Request 变量
+$_SESSION 						Session 变量
+$_ENV 							环境变量
+$_COOKIE  						HTTP Cookies
+$php_errormsg 					 前一个错误信息
+$HTTP_RAW_POST_DATA 			原生POST数据
+$http_response_header 			HTTP 响应头
+$argc 							 传递给脚本的参数数目
+$argv 							 传递给脚本的参数数组

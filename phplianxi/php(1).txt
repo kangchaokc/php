@@ -1,0 +1,65 @@
+﻿<?php echo 'hello';?>
+<script language="php"> echo 'hello';</script>
+
+echo
+print()
+print_r()
+var_dump()
+
+变量赋值:
+$val_2 = &$val_1; //把$val_1的内存空间地址赋值给$val_2，是同一个变量
+
+
+常量:
+define('PI', 3.1415926);
+
+超全局变量
+$GLOBALS
+$_GET
+$_POST
+$id = $_GET['id'];
+
+
+
+单引号字符串中出现的变量不会被变量的值替代;
+双引号字符串中最重要的一点是其中的变量会被变量值替代
+
+索引数组
+$week = array('星期一','星期二','星期三');
+
+null无，表示没有值，null不表示空格，也不表示0;
+
+以下值被认为是FALSE:
+特别注意:
+	
+	布尔值 FALSE
+	整型值 0
+	浮点型值 0.0
+	空白字符串和字符串 “0”
+	没有成员变量的数组
+	没有单元的对象(php4适用)
+	特殊类型的NULL
+
+echo gettype($str); 返回变量的类型
+有is_bool() 、 is_float() 、 is_numeric() 、 is_string() 、 is_array() 和 is_object() 
+
+
+foreach(array_expr as $value){
+//statements
+}
+break/continue
+
+
+
+
+//对象
+class PC{
+	public $m=10;
+	function show(){
+		echo 111;
+	}
+}
+//实例化和调用时，不需要带$符号
+$n=new PC;
+echo $n->m;
+$n->show();
