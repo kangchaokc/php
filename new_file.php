@@ -1,6 +1,6 @@
 <?php
 
-
+//dsfdsfdsfdsfdsfdsfdsf
 ////var_dump($_POST);
 var_dump(stat("wo1")) ;
 ?>
